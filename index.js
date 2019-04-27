@@ -8,7 +8,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var db; // no necesaria
 
 var mongoose = require('mongoose');
-var urlmongo = 'mongodb://localhost/linkdb';
+var urlmongo = 'mongodb://mongo/linkdb';
 mongoose.connect(urlmongo, { useNewUrlParser: true }, function(err, dbmongo) {
      if (err) { 
         console.log("Error: " + err);//throw err;
@@ -80,6 +80,7 @@ var link_create = function (req, res) {
             res.send('<p>ERROR: Link Not Created</p><a href="">Volver</a>');
         } else {
             res.send('Link Created successfully - <a href="/">Volver</a>'); 
+            console.log('Link: ' + l.url + ' Created successfully');
         }
     });
 };
@@ -89,7 +90,10 @@ router.post('/create', urlencodedParser, link_create);
 var link_delete = function (req, res) {
     Link.findByIdAndRemove(req.params.id, function (err) {
         if (err) res.send('<p>ERROR: Link Not Deleted</p><a href="">Volver</a>');
-        else res.send('Deleted successfully! - <a href="/">Volver</a>');
+        else {
+            res.send('Deleted successfully! - <a href="/">Volver</a>');
+            console.log('Link: ' + req.params.id + ' deleted successfully');
+        }
     });
 };
 router.get('/delete/:id', link_delete);
