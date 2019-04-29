@@ -1,8 +1,8 @@
-# WebApp COntenerizada con Nodejs y MongoDB
+# WebApp Contenerizada con Nodejs y MongoDB
 
 ## MongoDB
 
-```javascript
+```js
 $ docker run -d --name mongo mongo
 ```
 
